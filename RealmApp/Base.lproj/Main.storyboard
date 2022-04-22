@@ -102,7 +102,7 @@
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="4Vi-BZ-5h4" id="Yuo-gO-VQl"/>
-                            <outlet property="delegate" destination="4Vi-BZ-5h4" id="ypS-Xm-9MV"/>
+                            <outlet property="delegate" destination="4Vi-BZ-5h4" id="cPx-Ny-Iei"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="tqd-2v-SFg"/>

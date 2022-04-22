@@ -41,8 +41,20 @@ class TaskListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskListCell", for: indexPath)
         var content = cell.defaultContentConfiguration()
         let taskList = taskLists[indexPath.row]
+        let currentTasks = taskList.tasks.filter("isComplete = false")
+        let completedTasks = taskList.tasks.filter("isComplete = true")
+        
         content.text = taskList.name
-        content.secondaryText = "\(taskList.tasks.count)"
+
+        if currentTasks.count != 0 {
+            content.secondaryText = "\(currentTasks.count)"
+        } else if currentTasks.count == 0 && completedTasks.count != 0 {
+            content.secondaryText = "✅"
+        } else {
+            content.secondaryText = "\(currentTasks.count)"
+        }
+        
+        
         cell.contentConfiguration = content
         return cell
     }
@@ -130,3 +142,4 @@ extension TaskListViewController {
         tableView.insertRows(at: [rowIndex], with: .automatic)
     }
 }
+
