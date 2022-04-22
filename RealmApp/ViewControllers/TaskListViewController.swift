@@ -64,7 +64,7 @@ class TaskListViewController: UITableViewController {
         }
         
         let doneAction = UIContextualAction(style: .normal, title: "Done") { _, _, isDone in
-            StorageManager.shared.done(taskList)
+            StorageManager.shared.done(taskList)  
             tableView.reloadRows(at: [indexPath], with: .automatic)
             isDone(true)
         }
@@ -84,6 +84,14 @@ class TaskListViewController: UITableViewController {
     }
 
     @IBAction func sortingList(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.taskLists = taskLists.sorted(byKeyPath: "date")
+            tableView.reloadData()
+        default:
+            self.taskLists = taskLists.sorted(byKeyPath: "name")
+            tableView.reloadData()
+        }
     }
     
     @objc private func addButtonPressed() {
