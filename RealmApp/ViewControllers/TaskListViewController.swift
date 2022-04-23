@@ -44,8 +44,8 @@ class TaskListViewController: UITableViewController {
         let currentTasks = taskList.tasks.filter("isComplete = false")
         let completedTasks = taskList.tasks.filter("isComplete = true")
         
-        cell.accessoryType = .none
         content.text = taskList.name
+        cell.accessoryType = .none
         
         if currentTasks.count != 0 {
             content.secondaryText = "\(currentTasks.count)"
@@ -78,7 +78,7 @@ class TaskListViewController: UITableViewController {
         
         let doneAction = UIContextualAction(style: .normal, title: "Done") { _, _, isDone in
             StorageManager.shared.done(taskList)
-        
+            tableView.reloadRows(at: [indexPath], with: .automatic)
             isDone(true)
         }
         
