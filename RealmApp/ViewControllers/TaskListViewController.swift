@@ -11,8 +11,10 @@ import RealmSwift
 
 class TaskListViewController: UITableViewController {
 
+    // MARK: - Public Properties
     var taskLists: Results<TaskList>!
     
+    // MARK: - life Cycles Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         taskLists = StorageManager.shared.realm.objects(TaskList.self)
@@ -59,7 +61,6 @@ class TaskListViewController: UITableViewController {
         return cell
     }
     
-    // MARK: - Table View Data Source
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let taskList = taskLists[indexPath.row]
         
@@ -106,18 +107,9 @@ class TaskListViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-    
-    @objc private func addButtonPressed() {
-        showAlert()
-    }
-    
-    private func createTempData() {
-        DataManager.shared.createTempData {
-            self.tableView.reloadData()
-        }
-    }
 }
 
+// MARK: - Private Methods
 extension TaskListViewController {
     
     private func showAlert(with taskList: TaskList? = nil, completion: (() -> Void)? = nil) {
@@ -141,6 +133,16 @@ extension TaskListViewController {
         StorageManager.shared.save(taskList)
         let rowIndex = IndexPath(row: taskLists.index(of: taskList) ?? 0, section: 0)
         tableView.insertRows(at: [rowIndex], with: .automatic)
+    }
+    
+    private func createTempData() {
+        DataManager.shared.createTempData {
+            self.tableView.reloadData()
+        }
+    }
+    
+    @objc private func addButtonPressed() {
+        showAlert()
     }
 }
 

@@ -11,11 +11,14 @@ import RealmSwift
 
 class TasksViewController: UITableViewController {
     
+    // MARK: - Public Properties
     var taskList: TaskList!
     
+    // MARK: - Private Properties
     private var currentTasks: Results<Task>!
     private var completedTasks: Results<Task>!
 
+    // MARK: - life Cycles Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         title = taskList.name
@@ -92,12 +95,11 @@ class TasksViewController: UITableViewController {
         return UISwipeActionsConfiguration(actions: [doneAction, editAction, deleteAction])
     }
     
-    @objc private func addButtonPressed() {
-        showAlert()
-    }
+    
 
 }
 
+// MARK: - Private Methods
 extension TasksViewController {
     private func showAlert(with task: Task? = nil, completion: (() -> Void)? = nil) {
         let title = task != nil ? "Edit Task" : "New Task"
@@ -121,6 +123,10 @@ extension TasksViewController {
         StorageManager.shared.save(task, to: taskList)
         let rowIndex = IndexPath(row: currentTasks.index(of: task) ?? 0, section: 0)
         tableView.insertRows(at: [rowIndex], with: .automatic)
+    }
+    
+    @objc private func addButtonPressed() {
+        showAlert()
     }
 }
 
