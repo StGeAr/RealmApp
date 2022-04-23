@@ -77,7 +77,12 @@ class TasksViewController: UITableViewController {
         }
         
         let doneAction = UIContextualAction(style: .normal, title: "Done") { _, _, isDone in
-            StorageManager.shared.done(task) 
+            StorageManager.shared.done(task)
+
+            let range = NSMakeRange(0, self.tableView.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
+            self.tableView.reloadSections(sections as IndexSet, with: .automatic)
+                    
             isDone(true)
         }
         
@@ -118,3 +123,4 @@ extension TasksViewController {
         tableView.insertRows(at: [rowIndex], with: .automatic)
     }
 }
+

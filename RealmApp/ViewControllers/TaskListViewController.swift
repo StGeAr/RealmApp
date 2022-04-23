@@ -72,12 +72,13 @@ class TaskListViewController: UITableViewController {
             self.showAlert(with: taskList) {
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
+            
             isDone(true)
         }
         
         let doneAction = UIContextualAction(style: .normal, title: "Done") { _, _, isDone in
-            StorageManager.shared.done(taskList)  
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+            StorageManager.shared.done(taskList)
+        
             isDone(true)
         }
         
